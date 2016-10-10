@@ -42,6 +42,6 @@ Three other methodologies we could implement to even further speed up our databa
 
   2. **NoSQL Databases:** By denormalizing our database, or making our data redundant we could tailor our database to even better meet our needs. Certain popular NoSQL databases we could use include MongoDB, a document based storage system, and Redis, a key value storage system.
 
-  3. **Database Sharding:** Sharding our data or partitioning it between multiple servers could help balance the significant load and increase latency. However, sharding introduces significant complexity and makes altering our schema much more difficult.
+  3. **Database Sharding:** Sharding our data or partitioning it between multiple servers could help balance the significant load and decrease latency. However, sharding introduces significant complexity and makes altering our schema much more difficult.
 
 Because Aurora is still growing quickly, it is important that all the technologies used are adaptable and optimize for developer time. Some frameworks that meet these needs are Rails and Django for the backend and AngularJS or ReactJS for the front end. While in the future, Aurora might want to switch to more computationally efficient stacks, for now it is more important that technologies are flexible and easy to iterate on.
