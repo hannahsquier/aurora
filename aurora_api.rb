@@ -15,12 +15,9 @@ class AuroraAPI
 
   def get_components
     components = []
-
     components = @plant_overview.map do |component|
        component["device_name"] unless component["device_name"] == "Plant"
     end
-
-    components
   end
 
   def get_channels(component_name)
@@ -43,7 +40,6 @@ class AuroraAPI
 
   def total_inverter_energy
     inverter_energy_data = {}
-
     @plant_overview.each do |inverter|
       next unless inverter["device_name"].start_with?("SI")
       energy = get_channel_data_pt(inverter["device_name"], "E-Total").to_f
@@ -55,13 +51,11 @@ class AuroraAPI
 
   def avg_charge_amount
     avg_charge_data = {}
-
     @plant_overview.each do |battery|
       next unless battery["device_name"].start_with?("SI")
       avg_charge = get_channel_data_pt(battery["device_name"], "BatSoc").to_f
       avg_charge_data[battery["device_name"]] = avg_charge
     end
-
     avg_charge_data
   end
 

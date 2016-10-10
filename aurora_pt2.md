@@ -1,35 +1,35 @@
 # Aurora Challenge Part 2
 
-## Task: Describe how you would build an application that would monitor solar installations around the world.
+#### Task: Describe how you would build an application that would monitor solar installations around the world.
 
 
-As Aurora Solar grows, it is important that technologies scale as well. Aurora is collecting real time data that can be used to improve the solar industry as a whole. If systems do not scale, latency will increase to unsustainable levels. Below I lay out a database schema we could use to model our data model to keep it speedy and maintainable.
+As Aurora Solar grows, it is important that technologies scale as well. Aurora is collecting real time data that can be used to improve the solar industry as a whole. If systems do not scale, latency will increase to unsustainable levels. Below I lay out a database schema we could use to model our data to keep it speedy and maintainable.
 
-  Owner
+  1. Owner 
     * id (integer)
     * name (string)
     * organization (string)
     * email (string)
 
-  Installation
+  2. Installation
     * id (ingteger)
     * owner_id (integer, FK)
-    * address (each address componenet would be a different column)
 
-  Device
+  3. Device
     * id (integer)
+    * installation_id (integer, FK)
     * device_id (string, different from id)
     * active (boolean)
     * name (string)
 
-  Channel
+  4. Channel
     * id (integer)
     * device_id (integer, FK)
     * name (string)
     * parameter (string)
     * unit (string)
 
-  Relationships
+  5. Relationships
     * One owner has many installation (could also be many-to-many, and would use join table)
     * One installation has many devices
     * One device has many channels
@@ -37,19 +37,14 @@ As Aurora Solar grows, it is important that technologies scale as well. Aurora i
 
 With a database like the one outlined above, we would be able to efficiently access pertinent data. We could use a PostgreSQL object-relational database to store our data. Postgres is ideal for handling large amounts of data, and other more light weight ORMDBS like SQLite would not be sufficient. One of the reasons Postgres is able to scale so well is  because it uses multiversion concurrency control. This process allows changes to be made to the database while leaving other transactions unaffected until changes are committed.
 
-One other thing we could do to speed up database read times is index frequently accessed columns.
+Three other methodologies we could implement to even further speed up ourt database are:
+ 
+  1. **Index Frequently Accessed Columns:** An index is a copy of a column that can be searched efficiently because each cell is a direct reference to the location in memory and has a link to the corresponding row. By indexing frequently accessed columns, we can speed up both reads and writes. Because, writes occur multiple times a day in our monitoring system, this could make a significant difference.
+  
+  2. **NoSQL Databases:** By denormalizing our database, or making our data redundat we could tailor our database to even better meet our needs. Certain popular NoSQL databases we could use include MogoDB, a document based storage system, and Redis, a key value storage system. 
 
-Three other methodologies we could use to even further speed up ourt database are:
-  1. NoSQL Databases: By denormalizing our database, or making it redundat we could tailor our database to even better meet our needs.
+  3. **Database Sharding:** Sharding our data or partitioning it between multiple servers could help balance the significant load and increase latency. However, sharding introduces significant complexity and makes altering our schema much more difficult.
 
-  2. Database Sharding:
-  3. Load Balancing
+Because Aurora is still growing quickly, it is important that all the technologies used are adaptable and optimize for developer time. Some frameworks that meet these needs are Rails and Django for the backend and AngularJS or ReactJS for the front end. While in the future, Aurora might want to switch to more computationally efficient stacks, for now it is more important that technologies are flexible and easy to iterate on.
 
-Task guidelines:
-Every week, over 5000 new projects are created in Aurora and we would like to eventually be able to monitor these projects for our clients. You’ve gotten a chance to interact with fetching such data and build some intuition for what sort of data is useful to monitor and how the process works.
 
-How would you design an independent application for monitoring solar installations? What type of technologies (programming languages/application frameworks/etc) would you use? What type of database would you use? What might the data structures/schema look like? And most importantly, tell us why you would make each of those decisions.
-
-Tell us about any specific design considerations you took and why it might be important as such a monitoring system scales up. You don’t need to know the names of the technologies you would use, but its more important that you describe the properties that are important in building such an application.
-
-Write a couple paragraphs (or bullet points) in a word document/text file for submission.
